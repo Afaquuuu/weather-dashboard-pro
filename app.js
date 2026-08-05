@@ -149,6 +149,27 @@ searchForm.addEventListener('submit', async (e) => {
       throw new Error(`We couldn't find a city matching "${query}".`);
     }
 
+    // Anti-Gibberish Filter: Ensure the returned city has SOME logical connection to the user's search query.
+    // This prevents the Geocoding API from doing wild fuzzy matches (like "huh" returning "Fare, Huahine").
+    const isLogicalMatch = () => {
+      const q = query.toLowerCase();
+      const fields = [cityResult.name, cityResult.admin1, cityResult.admin2, cityResult.country];
+      
+      // Check if query is a substring of any geographical field
+      for (let field of fields) {
+        if (field && field.toLowerCase().includes(q)) return true;
+      }
+      
+      // Check if the city name is a substring of the query (e.g. "New York City" -> "New York")
+      if (cityResult.name && q.includes(cityResult.name.toLowerCase())) return true;
+      
+      return false;
+    };
+
+    if (!isLogicalMatch()) {
+      throw new Error(`No exact match found for "${query}". Please check the spelling and try again.`);
+    }
+
     const { latitude, longitude, name, country, timezone } = cityResult;
 
     // 2. Comprehensive Weather Data
