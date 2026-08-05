@@ -542,6 +542,11 @@ section h3 {
 
 /* Responsive */
 @media (max-width: 992px) {
+  body {
+    display: block;
+    align-items: flex-start;
+  }
+  
   .dashboard-container {
     flex-direction: column;
     height: auto;
