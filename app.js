@@ -36,6 +36,28 @@ const pressureStatusEl = document.getElementById('pressure-status');
 const hourlyContainer = document.getElementById('hourly-container');
 const dailyContainer = document.getElementById('daily-container');
 
+// Tabs
+const tabToday = document.getElementById('tab-today');
+const tabWeek = document.getElementById('tab-week');
+const sectionToday = document.getElementById('section-today');
+const sectionWeek = document.getElementById('section-week');
+
+if (tabToday && tabWeek && sectionToday && sectionWeek) {
+  tabToday.addEventListener('click', () => {
+    tabToday.classList.add('active');
+    tabWeek.classList.remove('active');
+    sectionToday.classList.remove('hidden');
+    sectionWeek.classList.add('hidden');
+  });
+
+  tabWeek.addEventListener('click', () => {
+    tabWeek.classList.add('active');
+    tabToday.classList.remove('active');
+    sectionWeek.classList.remove('hidden');
+    sectionToday.classList.add('hidden');
+  });
+}
+
 // Open-Meteo WMO Weather interpretation codes mapping
 const weatherCodes = {
   0: { label: 'Clear sky', icon: 'ph-sun', bg: 'clear-day' },
