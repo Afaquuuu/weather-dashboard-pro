@@ -551,9 +551,11 @@ section h3 {
     flex-direction: column;
     height: auto;
     min-height: 100vh;
+    max-height: none;
     width: 100%;
     border-radius: 0;
     border: none;
+    overflow: visible;
   }
   
   .sidebar {
