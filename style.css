@@ -75,7 +75,7 @@ body {
   width: 320px;
   background: var(--bg-sidebar);
   border-right: 1px solid var(--border);
-  padding: 1.5rem 2rem;
+  padding: 2.5rem 2rem 2rem 2.5rem; /* Increased top & left padding for optical centering against the curve */
   display: flex;
   flex-direction: column;
   overflow-y: auto;
