@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Pro Weather Dashboard</title>
+  <meta name="description" content="Professional, real-time weather dashboard." />
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Phosphor Icons for modern, clean iconography -->
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  
+  <!-- Dynamic Background overlay -->
+  <div id="app-bg" class="app-bg clear-day"></div>
+
+  <div class="dashboard-container">
+    
+    <!-- Left Sidebar: Main Info & Search -->
+    <aside class="sidebar">
+      <div class="search-container">
+        <form id="search-form">
+          <i class="ph ph-magnifying-glass search-icon"></i>
+          <input 
+            type="text" 
+            id="city-input" 
+            placeholder="Search for places..." 
+            autocomplete="off"
+            required
+          />
+          <button type="submit" class="search-btn">
+             <i class="ph ph-crosshair"></i>
+          </button>
+        </form>
+      </div>
+
+      <div id="sidebar-weather" class="sidebar-weather hidden">
+        <div class="current-icon-large">
+          <i id="main-weather-icon" class="ph ph-sun"></i>
+        </div>
+        
+        <div class="current-temp">
+          <span id="temp-value">--</span><span class="deg">°C</span>
+        </div>
+        
+        <div class="current-date-time">
+          <h2 id="city-name">Loading...</h2>
+          <p id="date-time">Monday, 12:00 PM</p>
+        </div>
+        
+        <div class="divider"></div>
+        
+        <div class="current-desc">
+          <div class="desc-item">
+            <i class="ph ph-cloud"></i>
+            <span id="weather-condition">--</span>
+          </div>
+          <div class="desc-item">
+            <i class="ph ph-drop"></i>
+            <span>Percipitation - <span id="precip-value">0</span>%</span>
+          </div>
+        </div>
+        
+        <div class="location-banner">
+          <i class="ph ph-map-pin"></i>
+          <span id="country-name">--</span>
+        </div>
+      </div>
+
+      <!-- Loading / Error states moved to main container -->
+    </aside>
+
+    <!-- Main Content Area: Forecasts & Highlights -->
+    <main class="main-content hidden" id="main-content">
+      
+      <!-- Top Navigation (Tabs) -->
+      <nav class="main-nav">
+        <ul>
+          <li class="active">Today</li>
+          <li>Week</li>
+        </ul>
+        <div class="units-toggle">
+          <button class="unit-btn active">°C</button>
+          <!-- <button class="unit-btn">°F</button> -->
+        </div>
+      </nav>
+
+      <!-- Hourly Forecast Row -->
+      <section class="hourly-forecast">
+        <h3>Hourly Forecast</h3>
+        <div class="hourly-container" id="hourly-container">
+          <!-- Populated by JS -->
+        </div>
+      </section>
+
+      <!-- Today's Highlights -->
+      <section class="highlights-section">
+        <h3>Today's Highlights</h3>
+        <div class="highlights-grid">
+          
+          <!-- UV Index -->
+          <div class="highlight-card">
+            <h4 class="card-title">UV Index</h4>
+            <div class="card-content gauge-content">
+               <div class="gauge-value" id="uv-value">--</div>
+               <p id="uv-text" class="gauge-text">Low</p>
+            </div>
+          </div>
+          
+          <!-- Wind Status -->
+          <div class="highlight-card">
+            <h4 class="card-title">Wind Status</h4>
+            <div class="card-content">
+              <div class="value-large">
+                <span id="wind-value">--</span><span class="unit">km/h</span>
+              </div>
+              <div class="wind-dir">
+                <i class="ph ph-navigation-arrow"></i>
+                <span id="wind-dir-text">--</span>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Sunrise & Sunset -->
+          <div class="highlight-card sun-card">
+            <h4 class="card-title">Sunrise & Sunset</h4>
+            <div class="sun-times">
+              <div class="sun-item">
+                <i class="ph ph-arrow-up text-yellow"></i>
+                <div class="time-block">
+                  <span id="sunrise-time">--:-- AM</span>
+                </div>
+              </div>
+              <div class="sun-item">
+                <i class="ph ph-arrow-down text-orange"></i>
+                <div class="time-block">
+                  <span id="sunset-time">--:-- PM</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Humidity -->
+          <div class="highlight-card">
+            <h4 class="card-title">Humidity</h4>
+            <div class="card-content">
+              <div class="value-large">
+                <span id="humidity-value">--</span><span class="unit">%</span>
+              </div>
+              <div class="status-text" id="humidity-status">Normal</div>
+            </div>
+          </div>
+          
+          <!-- Visibility -->
+          <div class="highlight-card">
+            <h4 class="card-title">Visibility</h4>
+            <div class="card-content">
+              <div class="value-large">
+                <span id="visibility-value">--</span><span class="unit">km</span>
+              </div>
+              <div class="status-text" id="visibility-status">Average</div>
+            </div>
+          </div>
+          
+          <!-- Air Pressure -->
+          <div class="highlight-card">
+            <h4 class="card-title">Pressure</h4>
+            <div class="card-content">
+              <div class="value-large">
+                <span id="pressure-value">--</span><span class="unit">hPa</span>
+              </div>
+              <div class="status-text" id="pressure-status">Normal</div>
+            </div>
+          </div>
+          
+        </div>
+      </section>
+      
+      <!-- 7 Day Forecast (Bottom Row) -->
+      <section class="daily-forecast">
+        <h3>7-Day Forecast</h3>
+        <div class="daily-container" id="daily-container">
+          <!-- Populated by JS -->
+        </div>
+      </section>
+
+    </main>
+
+    <!-- Loading / Error States (Takes up right side) -->
+    <div id="loading-state" class="state-container hidden">
+      <div class="spinner"></div>
+      <p>Fetching forecast...</p>
+    </div>
+    
+    <div id="error-state" class="state-container hidden">
+      <i class="ph ph-warning-circle error-icon"></i>
+      <h2 style="font-size: 2rem; margin-bottom: 0.5rem;">Oops!</h2>
+      <p id="error-message">City not found. Please try another name.</p>
+    </div>
+
+  </div>
+
+  <script src="app.js" type="module"></script>
+</body>
+</html>
