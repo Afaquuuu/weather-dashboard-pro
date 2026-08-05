@@ -89,7 +89,7 @@ body {
 /* App Branding */
 .app-branding {
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: center;
   margin-bottom: 2.5rem;
 }
