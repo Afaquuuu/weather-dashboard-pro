@@ -57,17 +57,17 @@ body {
 /* Main layout container */
 .dashboard-container {
   display: flex;
-  width: 95%;
-  max-width: 1200px;
-  height: 90vh;
-  max-height: 850px;
+  width: 100%;
+  max-width: none;
+  height: 100vh;
+  max-height: none;
   background: var(--bg-main);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
-  border: 1px solid var(--border);
-  border-radius: 32px;
+  border: none;
+  border-radius: 0;
   overflow: hidden;
-  box-shadow: var(--shadow-lg);
+  box-shadow: none;
 }
 
 /* ======== LEFT SIDEBAR ======== */
