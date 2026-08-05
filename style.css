@@ -89,41 +89,39 @@ body {
 /* App Branding */
 .app-branding {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
-  margin-bottom: 2rem;
+  margin-bottom: 2.5rem;
 }
 
 .brand-logo {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  font-size: 1.25rem;
-  font-weight: 300;
-  letter-spacing: -0.5px;
+  gap: 0.6rem;
+  font-size: 1.5rem;
+  font-weight: 500;
+  letter-spacing: -0.3px;
+  color: var(--text-main);
 }
 
 .brand-logo i {
-  font-size: 1.5rem;
-  color: #38bdf8; /* vibrant blue */
+  font-size: 2.2rem;
+  color: #38bdf8;
+  filter: drop-shadow(0 4px 10px rgba(56, 189, 248, 0.4));
 }
 
-.brand-logo strong {
-  font-weight: 700;
-}
-
-.github-link {
-  color: var(--text-muted);
-  font-size: 1.5rem;
-  transition: all 0.2s ease;
-  display: flex;
-  align-items: center;
-  text-decoration: none;
-}
-
-.github-link:hover {
-  color: var(--text-main);
-  transform: scale(1.1);
+.pro-badge {
+  font-weight: 800;
+  background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+  padding: 0.15rem 0.5rem;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  margin-left: 0.3rem;
+  color: #ffffff;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  box-shadow: 0 4px 12px rgba(139, 92, 246, 0.4);
+  vertical-align: middle;
 }
 
 .search-container {
