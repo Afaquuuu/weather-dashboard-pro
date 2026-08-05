@@ -149,19 +149,25 @@ searchForm.addEventListener('submit', async (e) => {
       throw new Error(`We couldn't find a city matching "${query}".`);
     }
 
-    // Anti-Gibberish Filter: Ensure the returned city has SOME logical connection to the user's search query.
-    // This prevents the Geocoding API from doing wild fuzzy matches (like "huh" returning "Fare, Huahine").
+    // Strict Anti-Gibberish Filter: Requires EXACT spelling matches.
+    // Prefix-matching is disabled as requested by the user.
     const isLogicalMatch = () => {
       const q = query.toLowerCase();
+      
+      const aliases = {
+        'nyc': true, 'la': true, 'uk': true, 'usa': true, 'us': true, 'america': true
+      };
+      if (aliases[q]) return true;
+
       const fields = [cityResult.name, cityResult.admin1, cityResult.admin2, cityResult.country];
       
-      // Check if query is a substring of any geographical field
+      // EXACT match only!
       for (let field of fields) {
-        if (field && field.toLowerCase().includes(q)) return true;
+        if (field && field.toLowerCase() === q) return true;
       }
       
-      // Check if the city name is a substring of the query (e.g. "New York City" -> "New York")
-      if (cityResult.name && q.includes(cityResult.name.toLowerCase())) return true;
+      // Allow full word trailing extensions (like "New York City" for "New York")
+      if (cityResult.name && q.startsWith(cityResult.name.toLowerCase() + ' ')) return true;
       
       return false;
     };
