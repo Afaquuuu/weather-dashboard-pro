@@ -544,8 +544,8 @@ section h3 {
 @media (max-width: 992px) {
   .dashboard-container {
     flex-direction: column;
-    height: 100vh;
-    max-height: none;
+    height: auto;
+    min-height: 100vh;
     width: 100%;
     border-radius: 0;
     border: none;
@@ -556,6 +556,7 @@ section h3 {
     border-right: none;
     border-bottom: 1px solid var(--border);
     padding: 1.5rem;
+    flex-shrink: 0;
   }
   
   .current-icon-large { font-size: 5rem; margin: 0; }
@@ -574,5 +575,6 @@ section h3 {
   
   .main-content {
     padding: 1.5rem;
+    overflow: visible;
   }
 }
